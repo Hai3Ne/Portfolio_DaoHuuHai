@@ -11,7 +11,6 @@ from reportlab.platypus import (
     BaseDocTemplate,
     Frame,
     Image,
-    PageBreak,
     PageTemplate,
     Paragraph,
     Spacer,
@@ -26,7 +25,7 @@ AVATAR = ROOT / "Sources" / "images" / "image_profile.jpg"
 
 PAGE_W, PAGE_H = A4
 MARGIN_X = 16 * mm
-MARGIN_Y = 14 * mm
+MARGIN_Y = 11 * mm
 ACCENT = colors.HexColor("#00d9ff")
 DARK = colors.HexColor("#111827")
 MUTED = colors.HexColor("#4b5563")
@@ -62,8 +61,8 @@ styles.add(
         fontSize=10.5,
         leading=13,
         textColor=DARK,
-        spaceBefore=10,
-        spaceAfter=6,
+        spaceBefore=7,
+        spaceAfter=4,
         borderPadding=(0, 0, 4, 0),
     )
 )
@@ -71,18 +70,18 @@ styles.add(
     ParagraphStyle(
         name="Body",
         fontName="Helvetica",
-        fontSize=8.7,
-        leading=11.2,
+        fontSize=8.0,
+        leading=9.6,
         textColor=DARK,
-        spaceAfter=4,
+        spaceAfter=2.5,
     )
 )
 styles.add(
     ParagraphStyle(
         name="Small",
         fontName="Helvetica",
-        fontSize=7.8,
-        leading=9.8,
+        fontSize=7.3,
+        leading=8.8,
         textColor=MUTED,
         spaceAfter=3,
     )
@@ -91,10 +90,10 @@ styles.add(
     ParagraphStyle(
         name="ItemTitle",
         fontName="Helvetica-Bold",
-        fontSize=9.2,
-        leading=11.5,
+        fontSize=8.8,
+        leading=10.4,
         textColor=DARK,
-        spaceBefore=4,
+        spaceBefore=2,
         spaceAfter=2,
     )
 )
@@ -102,24 +101,24 @@ styles.add(
     ParagraphStyle(
         name="Meta",
         fontName="Helvetica-Oblique",
-        fontSize=7.8,
-        leading=9.8,
+        fontSize=7.3,
+        leading=8.8,
         textColor=MUTED,
-        spaceAfter=3,
+        spaceAfter=2,
     )
 )
 styles.add(
     ParagraphStyle(
         name="Chip",
         fontName="Helvetica-Bold",
-        fontSize=7.2,
-        leading=9.2,
+        fontSize=6.8,
+        leading=8.3,
         textColor=colors.HexColor("#0b3d4a"),
         backColor=colors.HexColor("#dff8ff"),
         borderColor=colors.HexColor("#b7ebf6"),
         borderWidth=0.4,
         borderPadding=(2, 4, 2, 4),
-        spaceAfter=4,
+        spaceAfter=2,
     )
 )
 
@@ -160,7 +159,7 @@ def project(title: str, meta: str, bullets_list: list[str], tags: list[str], lin
     flow = [paragraph(title_text, "ItemTitle"), paragraph(meta, "Meta")]
     flow.extend(bullets(bullets_list))
     flow.extend(chip_flow(tags))
-    flow.append(Spacer(1, 2 * mm))
+    flow.append(Spacer(1, 0.8 * mm))
     return flow
 
 
@@ -170,11 +169,16 @@ def skill_group(title: str, items: list[str]):
     return flow
 
 
+def skill_summary(title: str, items: list[str]):
+    return paragraph(f"<b>{title}:</b> {', '.join(items)}.", "Body")
+
+
+
 def experience(title: str, meta: str, bullets_list: list[str], tags: list[str]):
     flow = [paragraph(title, "ItemTitle"), paragraph(meta, "Meta")]
     flow.extend(bullets(bullets_list))
     flow.extend(chip_flow(tags))
-    flow.append(Spacer(1, 2 * mm))
+    flow.append(Spacer(1, 0.8 * mm))
     return flow
 
 
@@ -182,8 +186,8 @@ def on_page(canvas, doc):
     canvas.saveState()
     canvas.setFillColor(DARK)
     canvas.setFont("Helvetica", 7.5)
-    canvas.drawString(MARGIN_X, 8 * mm, "Dao Huu Hai (Ray) - Unity Game Developer")
-    canvas.drawRightString(PAGE_W - MARGIN_X, 8 * mm, f"Page {doc.page}")
+    canvas.drawString(MARGIN_X, 6 * mm, "Dao Huu Hai (Ray) - Unity Game Developer")
+    canvas.drawRightString(PAGE_W - MARGIN_X, 6 * mm, f"Page {doc.page}")
     canvas.restoreState()
 
 
@@ -194,9 +198,9 @@ def build_pdf():
         leftMargin=MARGIN_X,
         rightMargin=MARGIN_X,
         topMargin=MARGIN_Y,
-        bottomMargin=13 * mm,
+        bottomMargin=9 * mm,
     )
-    frame = Frame(MARGIN_X, 14 * mm, PAGE_W - 2 * MARGIN_X, PAGE_H - 28 * mm, id="normal")
+    frame = Frame(MARGIN_X, 9 * mm, PAGE_W - 2 * MARGIN_X, PAGE_H - 20 * mm, id="normal")
     doc.addPageTemplates([PageTemplate(id="main", frames=[frame], onPage=on_page)])
 
     story = []
@@ -217,13 +221,17 @@ def build_pdf():
                 ],
                 [
                     Image(str(AVATAR), width=28 * mm, height=28 * mm),
-                    Spacer(1, 3 * mm),
+                    Spacer(1, 2 * mm),
                     paragraph("Ho Chi Minh City, Vietnam", "Small"),
                     paragraph("Phone: 0387712252", "Small"),
                     paragraph('Email: <a href="mailto:daohuuhai98@gmail.com">daohuuhai98@gmail.com</a>', "Small"),
                     paragraph('LinkedIn: <a href="https://www.linkedin.com/in/hai-dao-b56b151ab/">hai-dao</a>', "Small"),
                     paragraph('GitHub: <a href="https://github.com/Hai3Ne">github.com/Hai3Ne</a>', "Small"),
                     paragraph('GitLab: <a href="https://gitlab.com/Hai3Ne">gitlab.com/Hai3Ne</a>', "Small"),
+                    Spacer(1, 1.5 * mm),
+                    paragraph("<b>Education</b>", "Small"),
+                    paragraph("FPT Polytechnic - Web Developer Engineer", "Small"),
+                    paragraph("MAAC Academy - 3D Modeling", "Small"),
                 ],
             ]
         ],
@@ -241,16 +249,18 @@ def build_pdf():
         ),
     )
     story.append(header)
-    story.append(Spacer(1, 5 * mm))
+    story.append(Spacer(1, 3 * mm))
 
-    story.extend(section("Core Strengths"))
-    strengths = [
-        "Gameplay Systems: card logic, combat flow, tutorials, rankings, UI feedback, and player-facing interactions.",
-        "Mobile Release & LiveOps: Google Play Console, Firebase, IronSource LevelPlay, ads/IAP, reskin, optimization.",
-        "Hot Update & Tooling: HybridCLR hot update workflows for runtime feature and logic delivery.",
-        "AI-Assisted Workflow: Codex and Claude project agents, custom agent skills, prompt/context engineering, documentation automation.",
+    story.extend(section("Career Highlights"))
+    highlights = [
+        "Recognized as Outstanding Programming Employee 2025 at Tamron.",
+        "Contributed to Last Call, a Steam-released first-person anomaly observation horror game.",
+        "Co-developed and released Kitty Puzzle on Google Play with Firebase, Google Play Console, and IronSource LevelPlay integration.",
+        "Implemented HybridCLR hot update workflows for private slot game products released in the China market.",
+        "Built gameplay systems across FPS, slot, roguelike card, match-3, bullet-hell survival, racing, farming, and multiplayer projects.",
+        "Uses Codex and Claude project agents, custom agent skills, and AI-assisted workflows to accelerate implementation, refactoring, and documentation.",
     ]
-    story.extend(bullets(strengths))
+    story.extend(bullets(highlights))
 
     story.extend(section("Professional Experience"))
     story.extend(
@@ -325,7 +335,6 @@ def build_pdf():
         )
     )
 
-    story.append(PageBreak())
     story.extend(section("Selected Projects"))
     story.extend(
         project(
@@ -498,27 +507,7 @@ def build_pdf():
         ),
     ]
     for title, items in skill_groups:
-        story.extend(skill_group(title, items))
-        story.append(Spacer(1, 1.5 * mm))
-
-    story.extend(section("Education"))
-    story.extend(
-        bullets(
-            [
-                "Web Developer Engineer - FPT Polytechnic, Ho Chi Minh City (2018 - 2020). Graduated with Good standing, GPA 7.9.",
-                "3D Modeling - MAAC Academy. Completed 3D course.",
-            ]
-        )
-    )
-
-    story.extend(section("Interests"))
-    story.extend(
-        bullets(
-            [
-                "Indie game development, deck-building systems, horror games, game market trends, esports, music, and continuous technical learning.",
-            ]
-        )
-    )
+        story.append(skill_summary(title, items))
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     doc.build(story)

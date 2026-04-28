@@ -26,11 +26,13 @@ AVATAR = ROOT / "Sources" / "images" / "image_profile.jpg"
 PAGE_W, PAGE_H = A4
 MARGIN_X = 16 * mm
 MARGIN_Y = 11 * mm
-ACCENT = colors.HexColor("#00d9ff")
-DARK = colors.HexColor("#111827")
-MUTED = colors.HexColor("#4b5563")
-LIGHT_BG = colors.HexColor("#f3f7fb")
-BORDER = colors.HexColor("#d7e2ea")
+ACCENT = colors.HexColor("#00b8d9")
+DARK = colors.HexColor("#101820")
+MUTED = colors.HexColor("#4d5b66")
+LIGHT_BG = colors.HexColor("#f4f9fb")
+BORDER = colors.HexColor("#d6e5eb")
+PANEL = colors.HexColor("#eef8fb")
+CHIP_BG = colors.HexColor("#dff6fb")
 
 
 styles = getSampleStyleSheet()
@@ -38,8 +40,8 @@ styles.add(
     ParagraphStyle(
         name="Name",
         fontName="Helvetica-Bold",
-        fontSize=22,
-        leading=26,
+        fontSize=24,
+        leading=28,
         textColor=DARK,
         spaceAfter=3,
     )
@@ -51,18 +53,18 @@ styles.add(
         fontSize=11,
         leading=14,
         textColor=ACCENT,
-        spaceAfter=8,
+        spaceAfter=6,
     )
 )
 styles.add(
     ParagraphStyle(
         name="Section",
         fontName="Helvetica-Bold",
-        fontSize=10.5,
-        leading=13,
+        fontSize=10,
+        leading=12,
         textColor=DARK,
-        spaceBefore=7,
-        spaceAfter=4,
+        spaceBefore=6,
+        spaceAfter=3,
         borderPadding=(0, 0, 4, 0),
     )
 )
@@ -70,8 +72,8 @@ styles.add(
     ParagraphStyle(
         name="Body",
         fontName="Helvetica",
-        fontSize=8.0,
-        leading=9.6,
+        fontSize=8.2,
+        leading=10.0,
         textColor=DARK,
         spaceAfter=2.5,
     )
@@ -80,8 +82,8 @@ styles.add(
     ParagraphStyle(
         name="Small",
         fontName="Helvetica",
-        fontSize=7.3,
-        leading=8.8,
+        fontSize=7.4,
+        leading=9.0,
         textColor=MUTED,
         spaceAfter=3,
     )
@@ -90,8 +92,8 @@ styles.add(
     ParagraphStyle(
         name="ItemTitle",
         fontName="Helvetica-Bold",
-        fontSize=8.8,
-        leading=10.4,
+        fontSize=9.0,
+        leading=10.5,
         textColor=DARK,
         spaceBefore=2,
         spaceAfter=2,
@@ -111,13 +113,45 @@ styles.add(
     ParagraphStyle(
         name="Chip",
         fontName="Helvetica-Bold",
-        fontSize=6.8,
-        leading=8.3,
+        fontSize=6.9,
+        leading=8.4,
         textColor=colors.HexColor("#0b3d4a"),
-        backColor=colors.HexColor("#dff8ff"),
+        backColor=CHIP_BG,
         borderColor=colors.HexColor("#b7ebf6"),
         borderWidth=0.4,
         borderPadding=(2, 4, 2, 4),
+        spaceAfter=2,
+    )
+)
+styles.add(
+    ParagraphStyle(
+        name="SidebarTitle",
+        fontName="Helvetica-Bold",
+        fontSize=7.6,
+        leading=9.2,
+        textColor=colors.white,
+        spaceBefore=5,
+        spaceAfter=3,
+    )
+)
+styles.add(
+    ParagraphStyle(
+        name="SidebarText",
+        fontName="Helvetica",
+        fontSize=7.4,
+        leading=9.2,
+        textColor=colors.HexColor("#e8f7fb"),
+        spaceAfter=2,
+    )
+)
+styles.add(
+    ParagraphStyle(
+        name="Highlight",
+        fontName="Helvetica",
+        fontSize=8.0,
+        leading=9.6,
+        textColor=DARK,
+        leftIndent=0,
         spaceAfter=2,
     )
 )
@@ -128,7 +162,21 @@ def paragraph(text: str, style: str = "Body") -> Paragraph:
 
 
 def section(title: str):
-    return [paragraph(title.upper(), "Section"), hr()]
+    bar = Table(
+        [[paragraph(title.upper(), "Section")]],
+        colWidths=[171 * mm],
+        style=TableStyle(
+            [
+                ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+                ("TOPPADDING", (0, 0), (-1, -1), 2),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+                ("LINEBELOW", (0, 0), (-1, -1), 0.7, BORDER),
+                ("LINEABOVE", (0, 0), (0, 0), 2.0, ACCENT),
+            ]
+        ),
+    )
+    return [bar]
 
 
 def hr():
@@ -137,6 +185,10 @@ def hr():
 
 def bullets(items: list[str]):
     return [paragraph(f"- {item}", "Body") for item in items]
+
+
+def sidebar_paragraph(text: str, style: str = "SidebarText") -> Paragraph:
+    return Paragraph(text, styles[style])
 
 
 def chip_flow(items: list[str], max_line: int = 78):
@@ -159,7 +211,7 @@ def project(title: str, meta: str, bullets_list: list[str], tags: list[str], lin
     flow = [paragraph(title_text, "ItemTitle"), paragraph(meta, "Meta")]
     flow.extend(bullets(bullets_list))
     flow.extend(chip_flow(tags))
-    flow.append(Spacer(1, 0.8 * mm))
+    flow.append(Spacer(1, 1.2 * mm))
     return flow
 
 
@@ -178,12 +230,32 @@ def experience(title: str, meta: str, bullets_list: list[str], tags: list[str]):
     flow = [paragraph(title, "ItemTitle"), paragraph(meta, "Meta")]
     flow.extend(bullets(bullets_list))
     flow.extend(chip_flow(tags))
-    flow.append(Spacer(1, 0.8 * mm))
+    flow.append(Spacer(1, 1.2 * mm))
     return flow
+
+
+def highlight_table(items: list[str]):
+    rows = [[paragraph(f"- {item}", "Highlight")] for item in items]
+    return Table(
+        rows,
+        colWidths=[171 * mm],
+        style=TableStyle(
+            [
+                ("BACKGROUND", (0, 0), (-1, -1), LIGHT_BG),
+                ("BOX", (0, 0), (-1, -1), 0.5, BORDER),
+                ("LEFTPADDING", (0, 0), (-1, -1), 7),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 7),
+                ("TOPPADDING", (0, 0), (-1, -1), 4),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+            ]
+        ),
+    )
 
 
 def on_page(canvas, doc):
     canvas.saveState()
+    canvas.setFillColor(ACCENT)
+    canvas.rect(0, PAGE_H - 7 * mm, PAGE_W, 7 * mm, stroke=0, fill=1)
     canvas.setFillColor(DARK)
     canvas.setFont("Helvetica", 7.5)
     canvas.drawString(MARGIN_X, 6 * mm, "Dao Huu Hai (Ray) - Unity Game Developer")
@@ -205,6 +277,22 @@ def build_pdf():
 
     story = []
 
+    contact_card = [
+        Image(str(AVATAR), width=32 * mm, height=32 * mm),
+        Spacer(1, 2 * mm),
+        paragraph("<b>Contact</b>", "Small"),
+        paragraph("Ho Chi Minh City, Vietnam", "Small"),
+        paragraph("0387712252", "Small"),
+        paragraph('<a href="mailto:daohuuhai98@gmail.com">daohuuhai98@gmail.com</a>', "Small"),
+        Spacer(1, 1 * mm),
+        paragraph("<b>Links</b>", "Small"),
+        paragraph('<a href="https://www.linkedin.com/in/hai-dao-b56b151ab/">LinkedIn</a> | <a href="https://github.com/Hai3Ne">GitHub</a> | <a href="https://gitlab.com/Hai3Ne">GitLab</a>', "Small"),
+        Spacer(1, 1 * mm),
+        paragraph("<b>Education</b>", "Small"),
+        paragraph("FPT Polytechnic - Web Developer Engineer", "Small"),
+        paragraph("MAAC Academy - 3D Modeling", "Small"),
+    ]
+
     header = Table(
         [
             [
@@ -219,28 +307,19 @@ def build_pdf():
                         "Body",
                     ),
                 ],
-                [
-                    Image(str(AVATAR), width=28 * mm, height=28 * mm),
-                    Spacer(1, 2 * mm),
-                    paragraph("Ho Chi Minh City, Vietnam", "Small"),
-                    paragraph("Phone: 0387712252", "Small"),
-                    paragraph('Email: <a href="mailto:daohuuhai98@gmail.com">daohuuhai98@gmail.com</a>', "Small"),
-                    paragraph('LinkedIn: <a href="https://www.linkedin.com/in/hai-dao-b56b151ab/">hai-dao</a>', "Small"),
-                    paragraph('GitHub: <a href="https://github.com/Hai3Ne">github.com/Hai3Ne</a>', "Small"),
-                    paragraph('GitLab: <a href="https://gitlab.com/Hai3Ne">gitlab.com/Hai3Ne</a>', "Small"),
-                    Spacer(1, 1.5 * mm),
-                    paragraph("<b>Education</b>", "Small"),
-                    paragraph("FPT Polytechnic - Web Developer Engineer", "Small"),
-                    paragraph("MAAC Academy - 3D Modeling", "Small"),
-                ],
+                contact_card,
             ]
         ],
-        colWidths=[128 * mm, 43 * mm],
+        colWidths=[119 * mm, 52 * mm],
         style=TableStyle(
             [
                 ("VALIGN", (0, 0), (-1, -1), "TOP"),
                 ("BACKGROUND", (1, 0), (1, 0), LIGHT_BG),
                 ("BOX", (1, 0), (1, 0), 0.5, BORDER),
+                ("LEFTPADDING", (0, 0), (0, 0), 0),
+                ("RIGHTPADDING", (0, 0), (0, 0), 10),
+                ("TOPPADDING", (0, 0), (0, 0), 10),
+                ("BOTTOMPADDING", (0, 0), (0, 0), 8),
                 ("LEFTPADDING", (1, 0), (1, 0), 7),
                 ("RIGHTPADDING", (1, 0), (1, 0), 7),
                 ("TOPPADDING", (1, 0), (1, 0), 7),
@@ -260,7 +339,7 @@ def build_pdf():
         "Built gameplay systems across FPS, slot, roguelike card, match-3, bullet-hell survival, racing, farming, and multiplayer projects.",
         "Uses Codex and Claude project agents, custom agent skills, and AI-assisted workflows to accelerate implementation, refactoring, and documentation.",
     ]
-    story.extend(bullets(highlights))
+    story.append(highlight_table(highlights))
 
     story.extend(section("Professional Experience"))
     story.extend(

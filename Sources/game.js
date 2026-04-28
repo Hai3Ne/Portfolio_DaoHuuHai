@@ -25,15 +25,8 @@ const player = {
     stunTimer: 0       // Timer for stun duration
 };
 
-// Load player image
 function loadPlayerImage() {
-    player.image = new Image();
-    player.image.src = 'player.png'; // You'll need to create this file
-    // Fallback if image fails to load
-    player.image.onerror = function() {
-        console.log('Error loading player image. Using default circle.');
-        player.image = null;
-    };
+    player.image = null;
 }
 
 // Stars (collectibles) with images
@@ -41,14 +34,8 @@ const stars = [];
 const starCount = 10;
 let starImage = null;
 
-// Load star image
 function loadStarImage() {
-    starImage = new Image();
-    starImage.src = 'star.png'; // You'll need to create this file
-    starImage.onerror = function() {
-        console.log('Error loading star image. Using default star shape.');
-        starImage = null;
-    };
+    starImage = null;
 }
 
 function createStars() {
@@ -67,14 +54,8 @@ const obstacles = [];
 const obstacleCount = 15;
 let obstacleImage = null;
 
-// Load obstacle image
 function loadObstacleImage() {
-    obstacleImage = new Image();
-    obstacleImage.src = 'obstacle.png'; // You'll need to create this file
-    obstacleImage.onerror = function() {
-        console.log('Error loading obstacle image. Using default rectangle.');
-        obstacleImage = null;
-    };
+    obstacleImage = null;
 }
 
 function createObstacles() {

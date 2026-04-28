@@ -178,6 +178,31 @@ nav {
     box-shadow: 0 10px 20px rgba(0, 221, 255, 0.3);
 }
 
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+    animation: fadeInUp 1s ease 0.4s forwards;
+    opacity: 0;
+}
+
+.hero-actions .cta-button {
+    animation: none;
+    opacity: 1;
+}
+
+.cta-button.secondary {
+    color: var(--primary);
+    background-color: rgba(0, 221, 255, 0.08);
+    border: 1px solid rgba(0, 221, 255, 0.45);
+}
+
+.cta-button.secondary:hover {
+    color: var(--dark);
+    background-color: var(--primary);
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -239,6 +264,94 @@ nav {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
+/* Experience Section */
+.experience {
+    background-color: #141414;
+    position: relative;
+}
+
+.experience-list {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.experience-item {
+    background-color: #1a1a1a;
+    border-left: 3px solid var(--primary);
+    border-radius: 8px;
+    padding: 28px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+.experience-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    align-items: flex-start;
+    margin-bottom: 18px;
+}
+
+.experience-heading h3 {
+    color: var(--primary);
+    font-size: 28px;
+    margin-bottom: 6px;
+}
+
+.experience-heading p {
+    color: var(--light-text);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.experience-item > p {
+    color: var(--muted-text);
+    margin-bottom: 16px;
+    line-height: 1.7;
+}
+
+.experience-badge {
+    flex: 0 0 auto;
+    color: var(--dark);
+    background-color: var(--primary);
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+
+/* Strengths Section */
+.strengths {
+    background-color: var(--dark);
+    position: relative;
+}
+
+.strengths-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.strength-item {
+    padding: 24px;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    border-top: 2px solid var(--primary);
+}
+
+.strength-item h3 {
+    color: var(--primary);
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.strength-item p {
+    color: var(--muted-text);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
 /* Projects Section - Improved */
 .projects, .freelance-projects {
     background-color: var(--dark);
@@ -270,6 +383,10 @@ nav {
     height: 100%;
 }
 
+.project-link-static {
+    cursor: default;
+}
+
 .project-link:hover .project-card {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0, 221, 255, 0.2);
@@ -291,30 +408,6 @@ nav {
 
 .project-link:hover .project-img {
     transform: scale(1.05);
-}
-
-.project-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity var(--transition);
-}
-
-.project-link:hover .project-overlay {
-    opacity: 1;
-}
-
-.project-overlay .project-icon {
-    font-size: 48px;
-    color: var(--light-text);
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .project-info {
@@ -339,6 +432,24 @@ nav {
     flex-grow: 1;
 }
 
+.project-highlights {
+    color: var(--muted-text);
+    margin: 0 0 20px 0;
+    padding-left: 18px;
+    line-height: 1.55;
+    font-size: 14px;
+    flex-grow: 1;
+}
+
+.project-highlights li {
+    margin-bottom: 10px;
+}
+
+.project-highlights strong {
+    color: var(--light-text);
+    font-weight: 600;
+}
+
 .project-note {
     background-color: rgba(255, 220, 100, 0.1);
     border-left: 3px solid #f5a623;
@@ -346,6 +457,18 @@ nav {
     margin-bottom: 20px;
     font-size: 13px;
     color: #ddd;
+    display: flex;
+    align-items: flex-start;
+    border-radius: 0 5px 5px 0;
+}
+
+.achievement-note {
+    background-color: rgba(0, 221, 255, 0.1);
+    border-left: 3px solid var(--primary);
+    padding: 12px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #e8fbff;
     display: flex;
     align-items: flex-start;
     border-radius: 0 5px 5px 0;
@@ -364,10 +487,10 @@ nav {
     margin: 15px 0;
     border-radius: 0 5px 5px 0;
     display: block;
-    width: 100%; /* Chiếm toàn bộ chiều rộng */
-    box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước */
-    clear: both; /* Tránh các vấn đề float */
-    overflow: hidden; /* Xử lý vấn đề clearfix */
+    width: 100%;
+    box-sizing: border-box;
+    clear: both;
+    overflow: hidden;
 }
 
 .extension-link {
@@ -422,28 +545,6 @@ nav {
 .tag:hover {
     background-color: var(--primary);
     color: var(--dark);
-}
-
-/* Project Icon (for projects without images) */
-.project-card .project-icon {
-    width: 100%;
-    height: 150px;
-    background: linear-gradient(135deg, #222 0%, #333 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 2px solid var(--primary);
-}
-
-.project-card .project-symbol {
-    font-size: 48px;
-    font-style: normal;
-    color: var(--primary);
-    transition: transform var(--transition);
-}
-
-.project-link:hover .project-symbol {
-    transform: scale(1.2);
 }
 
 .freelance-projects .project-card {
@@ -680,6 +781,31 @@ nav {
     resize: vertical;
 }
 
+.form-message {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+    transition: opacity var(--transition);
+}
+
+.form-message.success {
+    color: #d6fff7;
+    background-color: rgba(0, 221, 255, 0.12);
+    border: 1px solid rgba(0, 221, 255, 0.28);
+}
+
+.form-message.error {
+    color: #ffe2e2;
+    background-color: rgba(255, 80, 80, 0.12);
+    border: 1px solid rgba(255, 80, 80, 0.28);
+}
+
+.form-message.fade-out {
+    opacity: 0;
+}
+
 .submit-button {
     display: flex;
     align-items: center;
@@ -755,6 +881,15 @@ footer p {
     
     .projects-grid {
         grid-template-columns: 1fr;
+    }
+
+    .strengths-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .experience-heading {
+        flex-direction: column;
+        gap: 12px;
     }
     
     .section-title {
@@ -839,5 +974,19 @@ footer p {
     
     .hero p {
         font-size: 16px;
+    }
+
+    .hero-actions {
+        align-items: stretch;
+        flex-direction: column;
+        max-width: 260px;
+    }
+
+    .hero-actions .cta-button {
+        text-align: center;
+    }
+
+    .strengths-grid {
+        grid-template-columns: 1fr;
     }
 }

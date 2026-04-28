@@ -1,4 +1,4 @@
-/* CSS Riêng Cho Phần About */
+/* About section styles */
 .about {
     background-color: var(--dark-accent);
     padding: 120px 0;
@@ -27,9 +27,9 @@
 .about-image {
     flex: 0 0 350px;
     position: sticky;
-    top: 100px; /* Khoảng cách từ top khi bắt đầu sticky */
-    height: max-content; /* Đảm bảo container chỉ cao bằng nội dung */
-    align-self: flex-start; /* Giữ ở vị trí top của flex container */
+    top: 100px;
+    height: max-content;
+    align-self: flex-start;
     z-index: 2;
     transition: transform 0.3s ease;
 }
@@ -129,7 +129,7 @@
 .about-text {
     flex: 1;
     padding-right: 20px;
-    min-height: 800px; /* Đảm bảo text đủ dài để scroll effect hoạt động tốt */
+    min-height: 800px;
 }
 
 .intro-text {
@@ -241,7 +241,7 @@
     transform: translateY(0);
 }
 
-/* Tạo độ trễ cho các phần tử */
+/* Stagger about section reveals */
 .about-text p.slide-in:nth-child(1) {
     transition-delay: 0.1s;
 }
@@ -270,7 +270,7 @@
     transition-delay: 0.7s;
 }
 
-/* Highlight cho hình ảnh khi scroll đến */
+/* Highlight image when it enters view */
 .about-image.in-view .image-container {
     box-shadow: 0 15px 40px rgba(0, 221, 255, 0.3);
 }

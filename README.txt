@@ -7,11 +7,23 @@
 
 ## About Me
 
-Unity Game Developer with over 3 years of experience developing and optimizing mobile games. Formerly a web developer, I bring a comprehensive understanding of both front-end development and game programming to create engaging player experiences.
+Unity Game Developer with over 4 years of experience developing and optimizing mobile games, starting from August 20, 2021. Formerly a web developer, I bring a comprehensive understanding of both front-end development and game programming to create engaging player experiences.
 
 I specialize in building robust systems using OOP, SOLID principles, and design patterns to deliver performant, maintainable code.
 
 ## Professional Experience
+
+### Unity Game Developer at Tamron
+- Developed and maintained slot game features with a strong focus on production stability, fast iteration, and clean integration with existing game flows
+- Implemented feature programming, reskin workflows, and gameplay logic updates based on direct business requirements from leadership
+- Used HybridCLR to support hot updates for new features and runtime logic changes, helping the team deliver content and feature adjustments more efficiently without full client rebuilds
+- Worked on private slot game products released for the China market, where public screenshots and gameplay materials cannot be displayed
+- Recognized as Outstanding Programming Employee 2025 at Tamron
+
+### Game Programmer at One Universe
+- Contributed as a Game Programmer on two game projects, working across gameplay logic, feature implementation, and player-facing systems
+- Worked on an FPS game built around skill-based combat inspired by tactical hero shooters such as Valorant, requiring precise ability logic, responsive interactions, and clean gameplay flow
+- Participated in a Shaman King game project, supporting gameplay feature development and implementation tasks within the existing production pipeline
 
 ### Unity Game Developer at YOUNG BUFFALO STUDIO (Apr 2024 - Oct 2024)
 - Developed casual, rogue-like games with comprehensive code structure and architecture
@@ -42,7 +54,7 @@ A hyper-casual farming game with tutorial systems, story elements, and monetizat
 - **Technologies**: Unity, C#
 - **Techniques**: MVC model, Generic Singleton, Observer Pattern
 
-### [Hero Survival](https://play.google.com/store/apps/details?id=co.imba.hero.survivors.premiuma)
+### [Hero Survival](https://play.google.com/store/apps/details?id=co.imba.archero.premium)
 A bullet-hell survival game similar to Survival.io with skill systems and progression.
 - **Role**: Junior Unity Game Developer - Skill system, Ranking, Tutorial features
 - **Technologies**: Unity, C# (Pure MVP model)
@@ -56,6 +68,23 @@ A racing, multiplayer game where players compete to earn points convertible to N
 - **Role**: Unity Game Developer - UI programming, database implementation, inventory systems
 - **Technologies**: Unity, C#, JavaScript, I2 Localize, Playfab, Addressable
 - **Extension**: [OverLeague Spatial Showroom](https://www.spatial.io/s/OverLeague-Showroom-6414c5a4d856d1323f10eba8)
+
+### [Kitty Puzzle](https://play.google.com/store/apps/details?id=com.twosleepycatsstudio.kittypuzzleparadise)
+A cat-themed match-3 puzzle game developed with a small team, focused on approachable gameplay, charming presentation, and mobile release readiness.
+- **Role**: Unity Developer - Gameplay implementation, release preparation, analytics/service integration
+- **Technologies**: Unity, C#, Firebase, Google Play Console, IronSource (LevelPlay)
+
+### [Last Call](https://store.steampowered.com/app/4614040/)
+A first-person anomaly observation game released on Steam under Two Sleepy Cats, built around careful observation, atmosphere, and player decision-making.
+- **Role**: Unity Developer - Gameplay implementation, interactive logic, and presentation flow
+- **Technologies**: Unity, C#
+- **Platform**: Steam
+
+### OutCast-Sigil
+A personal roguelike deck-building project focused on expressive card interactions, tactical progression, and scalable gameplay systems.
+- **Role**: Creator / Unity Developer - Core card logic, combat flow, UI feedback, and extensible content systems
+- **Technologies**: Unity, C#
+- **Focus**: Deck builder systems, roguelike progression, game design
 
 ## Technical Skills
 
@@ -77,6 +106,17 @@ var technicalSkills = new Dictionary<string, List<string>>()
     { "Unity Plugins", new List<string> { "Odin", "Feel", "I2 Localize", "Save System (Bayat)", "UHFPS" } },
     { "Version Control", new List<string> { "Git", "GitHub", "GitLab", "SVN" } },
     { "Web Development", new List<string> { "HTML", "CSS", "JavaScript" } },
+    { "AI & Agent Workflows", new List<string> {
+        "AI-assisted development",
+        "Codex",
+        "Claude",
+        "Agent skill setup",
+        "Project agent workflow setup",
+        "Prompt engineering",
+        "Context engineering",
+        "Workflow automation"
+      }
+    },
     { "Other Skills", new List<string> { "Python", "Blender", "3D Modeling" } }
 };
 ```
@@ -98,11 +138,11 @@ var technicalSkills = new Dictionary<string, List<string>>()
 
 ## Contact
 
-- 📧 Email: [daohuuhai98@gmail.com](mailto:daohuuhai98@gmail.com)
-- 📱 Phone: +84 387712252
-- 🔗 LinkedIn: [Hai Dao](https://www.linkedin.com/in/hai-dao-b56b151ab/)
-- 💻 GitHub: [Hai3Ne](https://github.com/Hai3Ne)
-- 📊 GitLab: [Hai3Ne](https://gitlab.com/Hai3Ne)
+- Email: [daohuuhai98@gmail.com](mailto:daohuuhai98@gmail.com)
+- Phone: +84 387712252
+- LinkedIn: [Hai Dao](https://www.linkedin.com/in/hai-dao-b56b151ab/)
+- GitHub: [Hai3Ne](https://github.com/Hai3Ne)
+- GitLab: [Hai3Ne](https://gitlab.com/Hai3Ne)
 
 ---
 

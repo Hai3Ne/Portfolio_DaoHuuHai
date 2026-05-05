@@ -345,7 +345,7 @@ def build_pdf():
     story.extend(
         experience(
             "Unity Game Developer - Tamron",
-            "Slot game development | Private China-market products",
+            "Jun 2025 - Present | Slot game development | Private China-market products",
             [
                 "Developed and maintained slot game features with a focus on production stability, fast iteration, and clean integration with existing game flows.",
                 "Handled feature programming, reskin implementation, and gameplay logic updates based on direct business requirements from leadership.",
@@ -369,7 +369,7 @@ def build_pdf():
     story.extend(
         experience(
             "Game Programmer - One Universe",
-            "Unity game development | FPS and Shaman King projects",
+            "Aug 2024 - Jun 2025 | Unity game development | FPS and Shaman King projects",
             [
                 "Contributed as a Game Programmer on two game projects, working across gameplay logic, feature implementation, and player-facing systems.",
                 "Worked on an FPS game built around skill-based combat inspired by tactical hero shooters such as Valorant, requiring precise ability logic, responsive interactions, and clean gameplay flow.",

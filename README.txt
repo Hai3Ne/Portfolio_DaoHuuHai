@@ -13,14 +13,14 @@ I specialize in building robust systems using OOP, SOLID principles, and design 
 
 ## Professional Experience
 
-### Unity Game Developer at Tamron
+### Unity Game Developer at Tamron (Jun 2025 - Present)
 - Developed and maintained slot game features with a strong focus on production stability, fast iteration, and clean integration with existing game flows
 - Implemented feature programming, reskin workflows, and gameplay logic updates based on direct business requirements from leadership
 - Used HybridCLR to support hot updates for new features and runtime logic changes, helping the team deliver content and feature adjustments more efficiently without full client rebuilds
 - Worked on private slot game products released for the China market, where public screenshots and gameplay materials cannot be displayed
 - Recognized as Outstanding Programming Employee 2025 at Tamron
 
-### Game Programmer at One Universe
+### Game Programmer at One Universe (Aug 2024 - Jun 2025)
 - Contributed as a Game Programmer on two game projects, working across gameplay logic, feature implementation, and player-facing systems
 - Worked on an FPS game built around skill-based combat inspired by tactical hero shooters such as Valorant, requiring precise ability logic, responsive interactions, and clean gameplay flow
 - Participated in a Shaman King game project, supporting gameplay feature development and implementation tasks within the existing production pipeline

@@ -11,6 +11,7 @@ from reportlab.platypus import (
     BaseDocTemplate,
     Frame,
     Image,
+    KeepTogether,
     PageTemplate,
     Paragraph,
     Spacer,
@@ -80,6 +81,29 @@ styles.add(
 )
 styles.add(
     ParagraphStyle(
+        name="BulletBody",
+        parent=styles["Body"],
+        leftIndent=14,
+        firstLineIndent=0,
+        bulletIndent=6,
+        spaceAfter=1.2,
+    )
+)
+styles.add(
+    ParagraphStyle(
+        name="BulletHighlight",
+        fontName="Helvetica",
+        fontSize=8.0,
+        leading=9.6,
+        textColor=DARK,
+        leftIndent=14,
+        firstLineIndent=0,
+        bulletIndent=6,
+        spaceAfter=1.0,
+    )
+)
+styles.add(
+    ParagraphStyle(
         name="Small",
         fontName="Helvetica",
         fontSize=7.4,
@@ -95,6 +119,7 @@ styles.add(
         fontSize=9.0,
         leading=10.5,
         textColor=DARK,
+        leftIndent=6,
         spaceBefore=2,
         spaceAfter=2,
     )
@@ -106,6 +131,7 @@ styles.add(
         fontSize=7.3,
         leading=8.8,
         textColor=MUTED,
+        leftIndent=6,
         spaceAfter=2,
     )
 )
@@ -119,6 +145,7 @@ styles.add(
         backColor=CHIP_BG,
         borderColor=colors.HexColor("#b7ebf6"),
         borderWidth=0.4,
+        leftIndent=6,
         borderPadding=(2, 4, 2, 4),
         spaceAfter=2,
     )
@@ -144,19 +171,6 @@ styles.add(
         spaceAfter=2,
     )
 )
-styles.add(
-    ParagraphStyle(
-        name="Highlight",
-        fontName="Helvetica",
-        fontSize=8.0,
-        leading=9.6,
-        textColor=DARK,
-        leftIndent=0,
-        spaceAfter=2,
-    )
-)
-
-
 def paragraph(text: str, style: str = "Body") -> Paragraph:
     return Paragraph(text, styles[style])
 
@@ -184,7 +198,7 @@ def hr():
 
 
 def bullets(items: list[str]):
-    return [paragraph(f"- {item}", "Body") for item in items]
+    return [Paragraph(item, styles["BulletBody"], bulletText="-") for item in items]
 
 
 def sidebar_paragraph(text: str, style: str = "SidebarText") -> Paragraph:
@@ -212,7 +226,7 @@ def project(title: str, meta: str, bullets_list: list[str], tags: list[str], lin
     flow.extend(bullets(bullets_list))
     flow.extend(chip_flow(tags))
     flow.append(Spacer(1, 1.2 * mm))
-    return flow
+    return KeepTogether(flow)
 
 
 def skill_group(title: str, items: list[str]):
@@ -231,11 +245,11 @@ def experience(title: str, meta: str, bullets_list: list[str], tags: list[str]):
     flow.extend(bullets(bullets_list))
     flow.extend(chip_flow(tags))
     flow.append(Spacer(1, 1.2 * mm))
-    return flow
+    return KeepTogether(flow)
 
 
 def highlight_table(items: list[str]):
-    rows = [[paragraph(f"- {item}", "Highlight")] for item in items]
+    rows = [[Paragraph(item, styles["BulletHighlight"], bulletText="-")] for item in items]
     return Table(
         rows,
         colWidths=[171 * mm],
@@ -243,8 +257,8 @@ def highlight_table(items: list[str]):
             [
                 ("BACKGROUND", (0, 0), (-1, -1), LIGHT_BG),
                 ("BOX", (0, 0), (-1, -1), 0.5, BORDER),
-                ("LEFTPADDING", (0, 0), (-1, -1), 7),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 7),
+                ("LEFTPADDING", (0, 0), (-1, -1), 10),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 10),
                 ("TOPPADDING", (0, 0), (-1, -1), 4),
                 ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
             ]
@@ -286,11 +300,15 @@ def build_pdf():
         paragraph('<a href="mailto:daohuuhai98@gmail.com">daohuuhai98@gmail.com</a>', "Small"),
         Spacer(1, 1 * mm),
         paragraph("<b>Links</b>", "Small"),
-        paragraph('<a href="https://www.linkedin.com/in/hai-dao-b56b151ab/">LinkedIn</a> | <a href="https://github.com/Hai3Ne">GitHub</a> | <a href="https://gitlab.com/Hai3Ne">GitLab</a>', "Small"),
+        paragraph('<a href="https://www.linkedin.com/in/hai-dao-b56b151ab/">LinkedIn</a>', "Small"),
+        paragraph('<a href="https://github.com/Hai3Ne">GitHub</a>', "Small"),
+        paragraph('<a href="https://gitlab.com/Hai3Ne">GitLab</a>', "Small"),
         Spacer(1, 1 * mm),
         paragraph("<b>Education</b>", "Small"),
-        paragraph("FPT Polytechnic - Web Developer Engineer", "Small"),
-        paragraph("MAAC Academy - 3D Modeling", "Small"),
+        paragraph("FPT Polytechnic", "Small"),
+        paragraph("Web Developer Engineer", "Small"),
+        paragraph("MAAC Academy", "Small"),
+        paragraph("3D Modeling", "Small"),
     ]
 
     header = Table(
@@ -310,7 +328,7 @@ def build_pdf():
                 contact_card,
             ]
         ],
-        colWidths=[119 * mm, 52 * mm],
+        colWidths=[114 * mm, 57 * mm],
         style=TableStyle(
             [
                 ("VALIGN", (0, 0), (-1, -1), "TOP"),
@@ -342,7 +360,7 @@ def build_pdf():
     story.append(highlight_table(highlights))
 
     story.extend(section("Professional Experience"))
-    story.extend(
+    story.append(
         experience(
             "Unity Game Developer - Tamron",
             "Jun 2025 - Present | Slot game development | Private China-market products",
@@ -366,7 +384,7 @@ def build_pdf():
             ],
         )
     )
-    story.extend(
+    story.append(
         experience(
             "Game Programmer - One Universe",
             "Aug 2024 - Jun 2025 | Unity game development | FPS and Shaman King projects",
@@ -378,7 +396,7 @@ def build_pdf():
             ["Unity", "C#", "Game Programming", "FPS", "Skill System", "Gameplay Logic", "Shaman King"],
         )
     )
-    story.extend(
+    story.append(
         experience(
             "Unity Game Developer - YOUNG BUFFALO STUDIO",
             "Apr 2024 - Oct 2024 | Ho Chi Minh City",
@@ -390,7 +408,7 @@ def build_pdf():
             ["Unity", "C#", "OOP", "SOLID", "Odin", "Feel", "Mobile Optimization"],
         )
     )
-    story.extend(
+    story.append(
         experience(
             "Fresher / Junior / Middle Unity Game Developer - IMBA",
             "Aug 2021 - Apr 2024 | Ho Chi Minh City",
@@ -402,7 +420,7 @@ def build_pdf():
             ["Unity", "C#", "PlayFab", "Addressables", "I2 Localize", "Ads/IAP", "Optimization"],
         )
     )
-    story.extend(
+    story.append(
         experience(
             "Frontend Developer - 3F Solutions / RunTime VN",
             "2018 - 2020 | Ho Chi Minh City",
@@ -415,7 +433,7 @@ def build_pdf():
     )
 
     story.extend(section("Selected Projects"))
-    story.extend(
+    story.append(
         project(
             "Last Call",
             "Steam release | Two Sleepy Cats",
@@ -428,7 +446,7 @@ def build_pdf():
             "https://store.steampowered.com/app/4614040/",
         )
     )
-    story.extend(
+    story.append(
         project(
             "Kitty Puzzle",
             "Google Play release | Two Sleepy Cats",
@@ -441,7 +459,7 @@ def build_pdf():
             "https://play.google.com/store/apps/details?id=com.twosleepycatsstudio.kittypuzzleparadise",
         )
     )
-    story.extend(
+    story.append(
         project(
             "OutCast-Sigil",
             "Personal roguelike deck-building project | WIP",
@@ -453,7 +471,7 @@ def build_pdf():
             ["Unity", "C#", "Deck Builder", "Roguelike", "Game Design"],
         )
     )
-    story.extend(
+    story.append(
         project(
             "Joker's Gambit",
             "Young Buffalo Studio | Gameplay video available",
@@ -466,7 +484,7 @@ def build_pdf():
             "https://www.youtube.com/shorts/jCjuUE8L6YQ",
         )
     )
-    story.extend(
+    story.append(
         project(
             "IMBA Projects",
             "MeowFarm Kawaii, Hero Survival, Overload, OverLeague",
